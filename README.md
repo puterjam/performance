@@ -1,9 +1,9 @@
-Performance Kit for Devtools
+Performance Toolkit for Devtools
 ==========
 
 #### 简介
 
-**Performance Kit** 是一个chrome devtools插件，用来方便观察performance的数据。
+**Performance Toolkit** 是一个chrome devtools插件，用来方便观察performance的数据。
 
 ****
 
