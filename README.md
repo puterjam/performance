@@ -7,6 +7,12 @@ Performance Toolkit for Devtools
 
 ****
 
+#### 下载
+Chrome App Store: 
+<https://chrome.google.com/webstore/detail/performance-toolkit/ddflmknikhhoiklhchkfpeiadchflbcg>
+
+****
+
 #### LICENSE
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
