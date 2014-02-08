@@ -1,5 +1,6 @@
 Performance Toolkit for Devtools
 ==========
+![Performance Toolkit](http://lh4.googleusercontent.com/GyTMYAgAsAlte6apRDUNy5F4KR94J7SLu6EhoLZL5Yd_5oynZxIen3Z29Sm_KgmQPBHN0yi1Ph8=s1280-h800-e365-rw)
 
 #### 简介
 
