@@ -1,8 +1,8 @@
 {
-    "name": "performance",
-    "version": "1.0",
+    "name": "Performance Toolkit",
+    "version": "0.1.1",
     "minimum_chrome_version": "10.0",
-    "description": "performance timing for devtools.",
+    "description": "Performance Toolkit for Chrome Devtools. A visualization of the performance timing.",
     "manifest_version": 2,
     "devtools_page": "devtools.html",
     "icons": {

@@ -3,119 +3,162 @@
 <head>
     <title>performance test</title>
     <style>
-        body{
-            background-color:#E9E9E9;
-            font-size:14px;
-            font-family: "Helvetica Neue",\5FAE\8F6F\96C5\9ED1,Tohoma;
+        body {
+            background-color: #E9E9E9;
+            font-size: 14px;
+            font-family: "Helvetica Neue", \5FAE\8F6F\96C5\9ED1, Tohoma;
         }
+
+        @font-face {
+          font-family: 'Blenda Script';
+          font-style: normal;
+          src: local('Blenda Script'), local('BlendaScript'), url(assets/BlendaScript.otf) format('opentype');
+        }
+
         .bar {
             position: relative;
-            margin-right:10px;
+            margin-right: 10px;
         }
 
         .mask-bar, .performance-bar {
-            height:48px;
-            border:5px #F5F5F5 solid;
-            border-radius:15px;
+            height: 48px;
+            border: 5px #F5F5F5 solid;
+            border-radius: 15px;
             width: 100%;
         }
-        .mask-bar{
+
+        .mask-bar {
             position: absolute;
 
         }
+
         .performance-bar {
-            display:-webkit-box;
+            display: -webkit-box;
             display: box;
-            background-color:#D2D4D8;
+            background-color: #D2D4D8;
         }
 
-        .network-bar, .server-bar, .client-bar, .blank-bar{
+        .network-bar, .server-bar, .client-bar, .blank-bar {
             -webkit-box-flex: 1;
             box-flex: 1;
             -webkit-transition: width 0.25s ease-out;
         }
-        .network-bar{
-            background-color:#FF3434;
-        }
-        .server-bar{
-            background-color:#FFBB34;
-        }
-        .client-bar{
-            background-color:#24B2B2;
-        }
-        .blank-bar{
-            background-color:#D2D4D8;
+
+        .network-bar {
+            background-color: #FF3434;
         }
 
-        .result{
-            margin-top:10px;
-            padding:10px;
-            border:5px #F5F5F5 solid;
-            border-radius:15px;
-            background-color:#FFFFFF;
+        .server-bar {
+            background-color: #FFBB34;
         }
-        .result ul{
-            margin:0;
-            padding:0;
+
+        .client-bar {
+            background-color: #24B2B2;
+        }
+
+        .blank-bar {
+            background-color: #0c7474;
+        }
+
+        .result {
+            margin-top: 10px;
+            padding: 10px;
+            border: 5px #F5F5F5 solid;
+            border-radius: 15px;
+            background-color: #FFFFFF;
+        }
+
+        .result ul {
+            margin: 0;
+            padding: 0;
             list-style: none;
         }
-        .result ul li.margin{
-            margin:0 0 10px;
+
+        .result ul li.margin {
+            margin: 0 0 10px;
         }
-        .network-text, .server-text, .client-text, .page-text{
+
+        .network-text, .server-text, .client-text, .page-text {
             word-break: keep-all;
             padding: 2px 4px;
             border-radius: 4px;
-            margin-right:4px;
+            margin-right: 4px;
         }
-        .network-text{
+
+        .network-text {
             background-color: #ff8f8f;
-            color:#A61111;
+            color: #A61111;
         }
-        .server-text{
+
+        .server-text {
             background-color: #ffda8f;
-            color:#a67411;
+            color: #a67411;
         }
-        .client-text{
+
+        .client-text {
             background-color: #7ad9d9;
-            color:#0c7474;
+            color: #0c7474;
         }
-        .page-text{
+
+        .page-text {
             background-color: #55606E;
-            color:#fff;
+            color: #fff;
         }
-        #network-result{
-            color:#A61111;
+
+        #network-result {
+            color: #A61111;
         }
-        #server-result{
-            color:#a67411;
+
+        #server-result {
+            color: #a67411;
         }
-        #client-result{
-            color:#0c7474;
+
+        #client-result {
+            color: #0c7474;
         }
-        .right{float:right;margin-top:-2px}
+
+        .right {
+            float: right;
+            margin-top: -2px
+        }
+
+        .footer{
+            margin-top:8px;
+            text-align: center;
+            font-size:10px;
+            letter-spacing: 1px;
+            color:#8E8E92;
+        }
+
+
+        .author{
+          font-family:"Blenda Script";
+          letter-spacing: 2px;
+          color:#55606E;
+        }
     </style>
 </head>
 <body>
-    <div class="bar">
-        <div class="mask-bar"></div>
-        <div class="performance-bar">
-            <div id="network_bar" class="network-bar"></div>
-            <div id="server_bar" class="server-bar"></div>
-            <div id="client_bar" class="client-bar"></div>
-            <div id="blank_bar" class="blank-bar"></div>
-        </div>
+<div class="bar">
+    <div class="mask-bar"></div>
+    <div class="performance-bar">
+        <div id="network_bar" class="network-bar"></div>
+        <div id="server_bar" class="server-bar"></div>
+        <div id="client_bar" class="client-bar"></div>
+        <div id="blank_bar" class="blank-bar"></div>
     </div>
+</div>
 
-    <div id="result" class="result">
-        <ul>
-            <li id="network-result" class="margin"></li>
-            <li id="server-result" class="margin"></li>
-            <li id="client-result" class="margin"></li>
-            <li id="page-result" ></li>
-        </ul>
-    </div>
+<div id="result" class="result">
+    <ul>
+        <li id="network-result" class="margin"></li>
+        <li id="server-result" class="margin"></li>
+        <li id="client-result" class="margin"></li>
+        <li id="page-result"></li>
+    </ul>
+</div>
 
-    <script src="performance.js"></script>
+<div class="footer">Performance Toolkit for Chrome Devtools. A project design by <a class="author" href="https://github.com/puterjam/performance" target="_blank">PuterJam</a>. </div>
+<script src="performance.js"></script>
 </body>
 </html>

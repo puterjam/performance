@@ -1,3 +1,24 @@
+/*
+ perfomance.js
+
+ Copyright (c) 2014
+
+ PuterJam
+
+ Licensed under the Apache License, Version 2.0 (the "License");
+ you may not use this file except in compliance with the License.
+ You may obtain a copy of the License at
+
+ http://www.apache.org/licenses/LICENSE-2.0
+
+ Unless required by applicable law or agreed to in writing, software
+ distributed under the License is distributed on an "AS IS" BASIS,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ See the License for the specific language governing permissions and
+ limitations under the License.
+ */
+
+
 var isLoadEventEnd = false, //是否完整绘制完成
     startFromNavigate = false,
     requestCount = 0,
@@ -90,7 +111,7 @@ function fillNetworkResult(total, timing) {
 //    var _un = (timing.unloadEventEnd - timing.navigationStart);
 //    _un > 0 && r.push('<span class="network-text">unload: ' + _un + 'ms</span>- ');
     r.push('<span class="network-text">redirect: ' + (timing.redirectEnd - timing.redirectStart) + 'ms</span>- ');
-    r.push('<span class="network-text">fetchStart: ' + (timing.fetchStart - timing.navigationStart) + 'ms</span>- ');
+    r.push('<span class="network-text">fetch start: ' + (timing.fetchStart - timing.navigationStart) + 'ms</span>- ');
     r.push('<span class="network-text">dns lookup: ' + (timing.domainLookupEnd - timing.domainLookupStart) + 'ms</span>- ');
     r.push('<span class="network-text">connect: ' + (timing.connectEnd - timing.connectStart) + 'ms</span>');
     networkResult.innerHTML = r.join("");
@@ -117,7 +138,7 @@ function fillServerResult(total, timing) {
     var r = [];
     r.push('<span class="server-text right">' + (total < 0 ? 0 : total) + 'ms</span>');
     r.push('<span class="server-text">request start: ' + new Date(timing.requestStart) + '</span>- ');
-    r.push('<span class="server-text">request: ' + (timing.responseStart - timing.requestStart) + 'ms</span>- ');
+    r.push('<span class="server-text">wait: ' + (timing.responseStart - timing.requestStart) + 'ms</span>- ');
     r.push('<span class="server-text">response: ' + (timing.responseEnd - timing.responseStart) + 'ms</span>');
     serverResult.innerHTML = r.join("");
 }
@@ -147,12 +168,14 @@ function fillClientResult(total, timing) {
     var _in = (timing.domInteractive - timing.domLoading);
     r.push('<span class="client-text">' + (_in <= 0 ? "<b>dom waiting for parse.</b>" : "dom interactive: " + _in + "ms") + '</span>- ');
 
-    r.push('<span class="client-text">dom content loaded: ' + (timing.domContentLoadedEventEnd - timing.domContentLoadedEventStart) + 'ms</span>- ');
+    var _dc = (timing.domContentLoadedEventEnd - timing.domContentLoadedEventStart);
+    _dc>0 && r.push('<span class="client-text">dom content loaded: ' + _dc + 'ms</span>- ');
 
     var _dc = (timing.domComplete - timing.domContentLoadedEventEnd);
-    r.push('<span class="client-text">' + (_dc <= 0 ? "<b>dom rendering...</b>" : "dom complete: " + _dc + "ms") + '</span>- ');
+    r.push('<span class="client-text">' + (_dc <= 0 ? "<b>dom rendering...</b></span>" : "dom complete: " + _dc + "ms</span>- "));
 
-    r.push('<span class="client-text">load event: ' + (timing.loadEventEnd - timing.loadEventStart) + 'ms</span>');
+    var _le =  (timing.loadEventEnd - timing.loadEventStart);
+    _le>0 && r.push('<span class="client-text">load event: ' + _le + 'ms</span>');
     clientResult.innerHTML = r.join("");
 }
 
@@ -183,7 +206,11 @@ function drawTiming(timing) {
             '<span class="page-text">request size: ' + (requestSize / 1024).toFixed(2) + 'Kb</span>',
             '<span class="page-text">response size: ' + (responseSize / 1024).toFixed(2) + 'Kb</span>'].join("");
     } else {
-        pageResult.innerHTML = '<span class="page-text">refresh page to calculate requests </span>';
+        if (navigator.platform == "MacIntel") {
+            pageResult.innerHTML = '<span class="page-text">refresh page(⌘R) to calculate requests </span>';
+        }else{
+            pageResult.innerHTML = '<span class="page-text">refresh page(F5) to calculate requests </span>';
+        }
     }
     // console.log((time.network - time.start) + "+" + (time.server - time.network) + "+" + (time.client - time.server) + "=" + time.total);
     // console.log(timing);
