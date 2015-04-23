@@ -19,7 +19,7 @@
  */
 
 chrome.devtools.panels.create("Performance",
-    "performance.png",
+    "logo.png",
     "app/performance.html",
     function (panel) {
     });

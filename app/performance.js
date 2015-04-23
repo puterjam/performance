@@ -76,11 +76,13 @@ chrome.devtools.network.onRequestFinished.addListener(function (request) {
 
 
 function getTiming(callback) {
+
     chrome.devtools.inspectedWindow.eval(
-        "window.performance",
+       // "window.performance.timing",
+        "(function(){for (var k in window.performance.timing) {var timing = timing || {}; timing[k] = window.performance.timing[k]}; return timing})()",
         function (result, isException) {
             if (!isException) {
-                callback(result.timing);
+                callback(result);
             }
             ;
         }
@@ -111,7 +113,7 @@ function fillNetworkResult(total, timing) {
 //    var _un = (timing.unloadEventEnd - timing.navigationStart);
 //    _un > 0 && r.push('<span class="network-text">unload: ' + _un + 'ms</span>- ');
     r.push('<span class="network-text">redirect: ' + (timing.redirectEnd - timing.redirectStart) + 'ms</span>- ');
-    r.push('<span class="network-text">fetch start: ' + (timing.fetchStart - timing.navigationStart) + 'ms</span>- ');
+    r.push('<span class="network-text">cache loaded: ' + (timing.domainLookupStart - timing.fetchStart) + 'ms</span>- ');
     r.push('<span class="network-text">dns lookup: ' + (timing.domainLookupEnd - timing.domainLookupStart) + 'ms</span>- ');
     r.push('<span class="network-text">connect: ' + (timing.connectEnd - timing.connectStart) + 'ms</span>');
     networkResult.innerHTML = r.join("");
@@ -183,6 +185,7 @@ function drawTiming(timing) {
 //    Object.keys(result.timing).forEach(function(k){
 //        document.write(k + ":" + result.timing[k] + "<br/>");
 //    });
+
     time = {
         start: timing.navigationStart,
         end: timing.loadEventEnd || (new Date()).getTime()
